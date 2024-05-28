@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: linear-gradient(45deg, #b5dcfa, #92acbd, #445a6b);
+            background-repeat: no-repeat;
+            height: 100vh;
+            font-size: larger;
+            font-weight: bold;
+            font-family: cursive;
+            /* text-align: center; */
+        }
+
+        h1 {
+            margin: 1.5rem;
+            text-align: center;
+        }
+
+        .todo-app {
+            width: 70vw;
+            margin: 0 auto;
+            background-color: rgb(202, 202, 202);
+            border-radius: 5px;
+            box-shadow: 5px 4px 4px #fff;
+        }
+
+        .form-control,
+        .btn {
+            margin: 1rem;
+        }
+
+        ul li {
+            list-style: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        ul li::before {
+            content: '✅';
+            /* position: absolute; */
+        }
+
+        ul li.checked {
+            text-decoration: 2px line-through;
+        }
+
+        ul li.checked::before {
+            content: '❎';
+        }
+        ul li span:hover{
+            background-color: rgb(155, 155, 155);
+            transition: 0.3;
+            border-radius: 25%;
+        }
+    </style>
+    <title>To-Do List</title>
+</head>
+
+<body>
+    <h1>To-Do List 📑</h1>
+
+    <div class="todo-app">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Add Your Task..!" aria-label="Recipient's username"
+                aria-describedby="button-addon2">
+            <button onclick="AddTask()" class="btn btn-danger" type="button" id="button-addon2">Button</button>
+        </div>
+        <ul id="list-container">
+            <!-- <li class="checked">Task1</li>
+            <li>Task2</li>
+            <li>Task3</li> -->
+        </ul>
+    </div>
+    <script>
+        const inputBox = document.querySelector('.form-control');
+        const listContainer = document.getElementById("list-container");
+
+        function AddTask() {
+            if (inputBox.value === "") {
+                alert("Write your To-Do Task..!")
+            }
+            else {
+                let li = document.createElement("li");
+                li.innerHTML = inputBox.value;
+                listContainer.appendChild(li);
+
+                let span = document.createElement("span");
+                span.innerHTML = "✖"
+                li.appendChild(span);
+            }
+            inputBox.value = "";
+        }
+       
+        listContainer.addEventListener("click", function(e){
+            if(e.target.tagName === "LI"){
+                e.target.classList.toggle("checked");
+            }
+            else if(e.target.tagName === "SPAN"){
+                e.target.parentElement.remove();
+            }
+        })
+    </script>
+</body>
+
+</html>
